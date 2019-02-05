@@ -1,0 +1,84 @@
+<!DOCTYPE HTML> 
+<html>  
+   <head> 
+  
+      <script type = "text/javascript">
+     window.addEventListener('load',carr)
+         var db = openDatabase('as', '1.0', 'TIPS', 2 * 1024 * 1024); 
+         var msg; 
+       
+         db.transaction(function (tx) { 
+            tx.executeSql('CREATE TABLE IF NOT EXISTS acs (id INTEGER PRIMARY KEY, s,a,q)'); 
+         });
+                 function carr(){
+                      document.getElementById('sas').addEventListener('click',acd);
+                          asdde();
+                 }
+
+                 function acd(){ 
+                  var w=document.getElementById('aa0').value;        
+                  var s=document.getElementById('aa1').value;
+                  var a=document.getElementById('aa2').value;
+                  var q=document.getElementById('aa3').value;
+                   db.transaction(function (tx) { 
+
+                    if (w) {
+                            tx.executeSql('UPDATE acs SET s=?,a=?,q=? WHERE id=?',[s,a,q,w]);    
+                    }
+					
+                    else{
+                     tx.executeSql('INSERT INTO acs(s,a,q) VALUES (?,?,?)',[a,s,q]);
+                    }
+                          });
+                         msg = '<p>sasa message created and row inserted.</p>'; 
+                         document.querySelector('#status').innerHTML =  msg;
+                    asdde();                         
+          }                
+                  function asdde(){
+                       var c= document.getElementById('tase');
+                     db.transaction(function (tx) {
+                           tx.executeSql('select * from acs',[], function(tx,results){
+                            var rows= results.rows;
+                                var tr="";
+                                 for(i=0;i<rows.length;i++){
+                                   tr +='<tr onclick="sendinfo(this)">';
+								  tr +='<td >'+rows[i].id+'</td>';
+                                   tr +='<td>'+rows[i].s+'</td>';
+                                   tr +='<td>'+rows[i].a+'</td>';
+                                   tr +='<td>'+rows[i].q+'</td>';
+                                   tr +='</tr>';
+                                }
+                                
+                                c.innerHTML = tr;
+                           
+                        });
+                        },null);
+                      }
+
+                    function sendinfo(a){
+                      var x=a.rowIndex;
+                      var s=document.getElementById('tase');
+                      var r1=s.rows[x].cells.length;
+                         for(var i=0;i<r1;i++){
+                              document.getElementById('aa'+i).value=s.rows[x].cells[i].innerHTML;
+                      }
+               }   
+			
+      </script> 
+   </head> 
+   <body> 
+      <div id = "status" name = "status">Status Message</div> 
+      <input type="hidden" name="" id="aa0">
+          <input type="text" id="aa1">
+           <input type="text" id="aa2">
+            <input type="text" id="aa3">
+                <input type="submit" id="sas">
+                <table id="tase">
+                <tr>
+                <th>sasa</th>
+                <th>asa</th>
+                <th>asasa</th>
+                </tr>
+                </table>
+   </body> 
+</html>
